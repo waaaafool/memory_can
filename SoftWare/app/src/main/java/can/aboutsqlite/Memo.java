@@ -126,11 +126,11 @@ public class Memo {
             return memo_dtime;
     }
     public String getmemo_dtimestring_memo_add(){
-        if( this.memo_dtime.equals("")){
-            String temppp="9999-12-01 12:12:12";
-            return  temppp;
+        String temp1="";
+        if( memo_dtime!=null){
+            return memo_dtime;
         }
-        return memo_dtime;
+        else  return "9999-12-01 12:12:12";
     }
 
     public void setMemo_dtimestring(String memo_dtime){

@@ -171,7 +171,9 @@ public class memo_add extends AppCompatActivity{
 
         if(n!=-1){
             String sdy=temp_memo.getmemo_dtimestring_memo_add();
-            currentTime.setText(sdy.substring(0,sdy.length()-3));
+            if(sdy!=null&&sdy.length()>3)
+            sdy=sdy.substring(0,sdy.length()-3);
+            currentTime.setText(sdy);
         }
         else {
             String SSSS="9999-12-01 12:12";
