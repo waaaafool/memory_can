@@ -217,7 +217,7 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     public void onSignupFailed() {
-        String temp1=Integer.toString(code);
+
         Toast.makeText(getBaseContext(),"手机号已被注册" , Toast.LENGTH_LONG).show();
 
         _signupButton.setEnabled(true);

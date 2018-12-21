@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -32,15 +33,20 @@ import can.memorycan.R;
 
 public class sliderbar extends AppCompatActivity {
     RadioButton rb1,rb2,rb3,rb4,rb5,cloud_down,cloud_up;
-    int user_id=57;
+    int user_id=0;
     DBManager mgr;
     int code=0;
+    String mobile;
+    String password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+        user_id=sp.getInt("user_id",1);
+        mobile=sp.getString("mobile",null);
+        password=sp.getString("password" ,null);
         mgr=new DBManager(this);
         setContentView(R.layout.activity_sliderbar);
         /*
@@ -164,12 +170,13 @@ public class sliderbar extends AppCompatActivity {
             }
         }
     }
-    private class ytb implements View.OnClickListener{
+    private class ytb implements View.OnClickListener {
         @Override
         public void onClick(View v) {
 
             try{
-                URL url=new URL("http://139.224.232.186:8080/web/cloud/syn");
+                URL url=new URL("http://139.224.232.186:8080/web/user/login");
+
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
                 httpURLConnection.setDoOutput(true);
                 httpURLConnection.setDoInput(true);
@@ -178,7 +185,7 @@ public class sliderbar extends AppCompatActivity {
                 httpURLConnection.setRequestProperty("connection", "Keep-Alive");
                 httpURLConnection.setRequestProperty("user-agent",
                         "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
-                String param="type=云同步&user_id="+user_id;
+                String param="user_tel="+mobile+"&user_password="+password;
                 StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
                 httpURLConnection.connect();
                 PrintWriter writer=new PrintWriter(httpURLConnection.getOutputStream());
@@ -187,23 +194,66 @@ public class sliderbar extends AppCompatActivity {
                 BufferedReader reader=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 String line=null;
                 line=reader.readLine();
-                Gson gson = new Gson();
-                User user1=gson.fromJson(line, User.class);
-                if(mgr.User_exist(user1.getUser_id()))
-                    mgr.update_User(user1);
-                else
-                    mgr.insert_User(user1);
-                mgr.Deletememo_by_uid(user1.getUser_id());
-                line=reader.readLine();
-                Gson gson1 = new Gson();
-                List<Memocloud> PostList = gson1.fromJson(line, (new TypeToken<List<Memocloud>>() {}).getType());
-                for (int i = 0; i < PostList.size(); i++) {
-                    mgr.insert_MemoCloud(PostList.get(i));
+                Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
+
+                line=line.substring(0,(line.length()-1));
+                int flag=0;//标示是否开始识别
+               String temp_str="";
+                for(int kk=0;kk<line.length()-1;kk++){
+                    if(line.charAt(kk)==':') {
+                        flag=1;
+                    }
+                    else if(flag==1&&line.charAt(kk)!=','){
+                        temp_str+=line.charAt(kk);
+                    }
+
+                    if(line.charAt(kk)==',') break;
+
                 }
+                code=Integer.parseInt(temp_str);
+
+                if(code==2){
+
+                    line=reader.readLine();
+                    flag=0;//标示是否开始识别
+                    temp_str="";
+                    for(int kk=0;kk<line.length()-1;kk++){
+                        if(line.charAt(kk)==':') {
+                            flag=1;
+                        }
+                        else if(flag==1&&line.charAt(kk)!=','){
+                            temp_str+=line.charAt(kk);
+                        }
+
+                        if(line.charAt(kk)==',') break;
+
+                    }
+                    user_id=Integer.parseInt(temp_str);
+                    temp_str=line;
+                    Gson gson1=new Gson();
+                    // line=line.substring(0,line.length());
+                    User user1=gson1.fromJson(line,User.class);
+                    if(mgr.User_exist(user1.getUser_id()))
+                        mgr.update_User(user1);
+                    else
+                        mgr.insert_User(user1);
+                    mgr.Deletememo_by_uid(user1.getUser_id());
+                    line=null;
+                    line=reader.readLine();
+                    Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
+                    mgr.Deletememo_by_uid(user1.getUser_id());
+                    Gson gson=new Gson();
+                    List<Memocloud> PostList = gson.fromJson(line, (new TypeToken<List<Memocloud>>() {}).getType());
+                    for (int i = 0; i < PostList.size(); i++) {
+                        mgr.insert_MemoCloud(PostList.get(i));
+                    }
+
+                }
+
                 writer.close();
                 reader.close();
             }catch (IOException e){
-                System.out.println(e.toString());
+                System.out.println(e.getMessage());
 
             }
         }
