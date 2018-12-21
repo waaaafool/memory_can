@@ -48,6 +48,7 @@ public class AppUsedService extends Service {
     public void onDestroy() {
         super.onDestroy();
     }
+
     //消息发送到通知栏
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     void sendNotify(String contentText){
