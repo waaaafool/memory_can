@@ -132,6 +132,7 @@ public class sliderbar extends AppCompatActivity {
                 ArrayList memolist=mgr.returnmemo1(user_id);
                 String json = gson.toJson(memolist);
                 String param="type=云备份&user=" +users+ "&memo="+json;
+                Toast.makeText(getBaseContext(),param, Toast.LENGTH_LONG).show();
                 httpURLConnection.connect();
                 PrintWriter writer=new PrintWriter(httpURLConnection.getOutputStream());
                 writer.print(param);
@@ -156,6 +157,7 @@ public class sliderbar extends AppCompatActivity {
                 if(code==1)
                 {
                     line=reader.readLine();
+                    Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
                     mgr.Deletememo_by_uid(user_id);
                     List<Memocloud> PostList = gson.fromJson(line, (new TypeToken<List<Memocloud>>() {}).getType());
                     for (int i = 0; i < PostList.size(); i++) {
@@ -186,6 +188,7 @@ public class sliderbar extends AppCompatActivity {
                 httpURLConnection.setRequestProperty("user-agent",
                         "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
                 String param="user_tel="+mobile+"&user_password="+password;
+
                 StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().detectDiskReads().detectDiskWrites().detectNetwork().penaltyLog().build());
                 httpURLConnection.connect();
                 PrintWriter writer=new PrintWriter(httpURLConnection.getOutputStream());

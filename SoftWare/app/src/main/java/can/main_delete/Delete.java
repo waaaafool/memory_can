@@ -2,6 +2,7 @@ package can.main_delete;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -38,6 +39,7 @@ public class Delete extends AppCompatActivity {
     private Button delete_delete;
     private Delete_Adapter myAdapter = null;
     private Handler handle = new Handler();
+    int user_id;
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -54,6 +56,8 @@ public class Delete extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.delete_memo);
+        SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+        user_id=sp.getInt("user_id",1);
         final DBManager mgr = new DBManager(this);
         mContext = Delete.this;
         list_memo = (ExpandableListView) findViewById(R.id.delete_list_memo);
@@ -68,15 +72,15 @@ public class Delete extends AppCompatActivity {
         gData.add(new Group_new("已完成任务",0));
 
         lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo2(1);
+        lData = mgr.returnmemo2(user_id);
         iData.add(lData);
 
         lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo3(1);
+        lData = mgr.returnmemo3(user_id);
         iData.add(lData);
 
         lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo1(1);
+        lData = mgr.returnmemo1(user_id);
         iData.add(lData);
 
         myAdapter = new Delete_Adapter(gData,iData,mContext, mgr);
