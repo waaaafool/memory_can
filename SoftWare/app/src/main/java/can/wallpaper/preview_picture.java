@@ -1,4 +1,5 @@
 package can.wallpaper;
+import android.app.ProgressDialog;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 
 import can.aboutsqlite.DBManager;
 import can.aboutsqlite.Memo;
+import can.login.LoginActivity;
 import can.memo_add_details.memo_add_details;
 import can.memorycan.R;
 
@@ -343,6 +345,22 @@ public class preview_picture extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             //获取当前屏幕的大小
+            final ProgressDialog progressDialog = new ProgressDialog(preview_picture.this,
+                    R.style.AppTheme_Dark_Dialog);
+
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("正在生成壁纸...");
+            progressDialog.show();
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            // On complete call either onLoginSuccess or onLoginFailed
+                            progressDialog.dismiss();
+                            Toast.makeText(preview_picture.this,"壁纸生成成功",Toast.LENGTH_LONG).show();
+                        }
+                    }, 3000);
+
+
             width = getWindow().getDecorView().getRootView().getWidth();
             height = getWindow().getDecorView().getRootView().getHeight();
             //生成相同大小的图片
@@ -357,6 +375,8 @@ public class preview_picture extends AppCompatActivity {
             //imageView.setImageBitmap(bitmap);
             bitmap=imageCrop(bitmap);
             SetLockWallPaper();       //设置锁屏壁纸
+
+
         }
     }
 
@@ -389,15 +409,15 @@ public class preview_picture extends AppCompatActivity {
     private void SetLockWallPaper() {
         // TODO Auto-generated method stub
         WallpaperManager mWallManager = WallpaperManager.getInstance(this);
-
         try {
 
             mWallManager.setBitmap(bitmap,null,true,WallpaperManager.FLAG_LOCK);
-            Toast.makeText(preview_picture.this,"壁纸生成成功",Toast.LENGTH_SHORT).show();
+
         } catch (Throwable e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
+
     }
     protected void onDestroy() {
         super.onDestroy();

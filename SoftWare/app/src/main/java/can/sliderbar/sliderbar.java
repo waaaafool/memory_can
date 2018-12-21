@@ -168,6 +168,7 @@ public class sliderbar extends AppCompatActivity {
                 }
                 writer.close();
                 reader.close();
+                Toast.makeText(getBaseContext(),"云备份成功" , Toast.LENGTH_SHORT).show();
             }catch (IOException e){
                 System.out.println(e.toString());
 
@@ -257,6 +258,7 @@ public class sliderbar extends AppCompatActivity {
 
                 writer.close();
                 reader.close();
+                Toast.makeText(getBaseContext(),"云同步成功" , Toast.LENGTH_SHORT).show();
             }catch (IOException e){
                 System.out.println(e.getMessage());
 

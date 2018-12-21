@@ -45,6 +45,7 @@
         <activity android:name=".memo_add.memo_add" />
         <activity
             android:name="can.guide_pages.SplashActivity"
+
             android:label="@string/app_name"
             >
             <intent-filter>
@@ -68,7 +69,10 @@
 
         <activity android:name="can.weather.Weather" />
 
-        <activity android:name="can.main_delete.MainActivity"></activity>
+        <activity android:name="can.main_delete.MainActivity"
+            android:launchMode="singleTask" >
+
+        </activity>
 
         <activity android:name="can.memo_add_details.memo_add_details" />
         <activity android:name=".setting.setting" />
