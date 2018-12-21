@@ -114,7 +114,7 @@ public class sliderbar extends AppCompatActivity {
     private class ybf implements View.OnClickListener{
         @Override
         public void onClick(View v) {
-
+            System.out.print("在这里额啊");
             try{
                 URL url=new URL("http://139.224.232.186:8080/web/cloud/backup");
                 HttpURLConnection httpURLConnection=(HttpURLConnection)url.openConnection();
@@ -129,8 +129,10 @@ public class sliderbar extends AppCompatActivity {
                 user= mgr.returnUser(user_id);//输入用户ID
                 Gson gson=new Gson();
                 String users=user.toString();
-                ArrayList memolist=mgr.returnmemo1(user_id);
+                ArrayList<Memocloud> memolist=mgr.returnmemocloud(user_id);
                 String json = gson.toJson(memolist);
+
+                System.out.print(json);
                 String param="type=云备份&user=" +users+ "&memo="+json;
                 httpURLConnection.connect();
                 PrintWriter writer=new PrintWriter(httpURLConnection.getOutputStream());
@@ -157,7 +159,7 @@ public class sliderbar extends AppCompatActivity {
                 {
                     line=reader.readLine();
                     mgr.Deletememo_by_uid(user_id);
-                    List<Memocloud> PostList = gson.fromJson(line, (new TypeToken<List<Memocloud>>() {}).getType());
+                    ArrayList<Memocloud> PostList = gson.fromJson(line, (new TypeToken<ArrayList<Memocloud>>() {}).getType());
                     for (int i = 0; i < PostList.size(); i++) {
                         mgr.insert_MemoCloud(PostList.get(i));
                     }

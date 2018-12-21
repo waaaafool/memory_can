@@ -112,10 +112,10 @@ public class Memocloud {
     public void setMemo_content(String memo_content) {
         this.memo_content = memo_content;
     }
-    public String toString()
-    {
-        Gson gson=new Gson();
-        String s=gson.toJson(this);
+
+    public String toString() {
+        Gson gson = new Gson();
+        String s = gson.toJson(this);
         return s;
     }
 
