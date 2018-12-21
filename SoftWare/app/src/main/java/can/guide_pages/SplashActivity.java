@@ -1,7 +1,9 @@
 package can.guide_pages;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 
@@ -33,7 +35,13 @@ public class SplashActivity extends Activity {
 
         // 如果不是第一次启动app，则正常显示启动屏
         setContentView(R.layout.activity_splash);
-
+        SharedPreferences sp=getSharedPreferences("sp_demo",Context.MODE_PRIVATE);
+        int is_close=sp.getInt("is_close",0);
+        /*
+        * isclose:
+        * 0->第一次登陆,1->登陆后没有退出登陆,2->登陆后退出登陆
+        * */
+        if(is_close==0||is_close==2)
         new Handler().postDelayed(new Runnable() {
 
             @Override
@@ -41,10 +49,24 @@ public class SplashActivity extends Activity {
                 enterHomeActivity();
             }
         }, 2000);
+        else {
+            new Handler().postDelayed(new Runnable() {
+
+                @Override
+                public void run() {
+                    enterMainActivity();
+                }
+            }, 2000);
+        }
     }
 
     private void enterHomeActivity() {
         Intent intent = new Intent(this, can.login.LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+    private  void enterMainActivity(){
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         finish();
     }

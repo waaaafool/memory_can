@@ -971,6 +971,30 @@ public class DBManager {
         } return weather_priority;
     }
 
+    public int is_exis(String mobile,String pass){
+        String sql="select * from user where user_tel="+mobile;
+        String pass1="2222";
+        int user_id1=0;
+        Cursor c = null;
+        c = db.rawQuery(sql,null);
+        if(c.moveToFirst()){
+            user_id1 =c.getInt((c.getColumnIndex("user_id")));
+            pass1=c.getString((c.getColumnIndex("user_password")));
+            c.close();
+
+        }else {
+            c.close();
+        }
+
+        if(pass1.equals(pass)){
+            return user_id1;
+        }
+        else {
+            return -1;
+        }
+
+    }
+
     /*关闭数据库*/
     public void closeDB(){
         db.close();

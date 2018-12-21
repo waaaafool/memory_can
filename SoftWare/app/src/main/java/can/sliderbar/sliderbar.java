@@ -1,6 +1,8 @@
 package can.sliderbar;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -95,6 +97,10 @@ public class sliderbar extends AppCompatActivity {
     private class tologin implements View.OnClickListener{
         @Override
         public void onClick(View v) {
+            SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putInt("is_close", 2);
+            editor.commit();
             Intent intent=new Intent(sliderbar.this,can.login.LoginActivity.class);
             startActivity(intent);
         }

@@ -99,7 +99,6 @@ public class memo_add extends AppCompatActivity{
 
         System.out.println(n);
 
-        user_id=1;
         memo_done=0;
         //memo_content="a我是中国人5";
 
@@ -171,7 +170,7 @@ public class memo_add extends AppCompatActivity{
         });
 
         if(n!=-1){
-            String sdy=temp_memo.getmemo_dtimestring();
+            String sdy=temp_memo.getmemo_dtimestring_memo_add();
             currentTime.setText(sdy.substring(0,sdy.length()-3));
         }
         else {
