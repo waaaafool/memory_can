@@ -10,6 +10,7 @@ import android.app.usage.UsageStats;
 import android.app.usage.UsageStatsManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -83,6 +84,7 @@ public class live_assitance extends AppCompatActivity {
     private static final int K = 3;
     private Switch  sw1,sw2,sw3,sw4,sw5,sw6,sw7;//天气预报按钮sw5，智能分析按钮sw7
     private Switch sw8;//悬浮窗
+    private static int user_id=1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -99,6 +101,8 @@ public class live_assitance extends AppCompatActivity {
         /*
          * 获取各个权限的值
          * */
+        SharedPreferences sp= getSharedPreferences("sp_demo",Context.MODE_PRIVATE);
+        user_id=sp.getInt("user_id",1);
 
         ig4=findViewById(R.id.imageButton4);
         ig4.setOnClickListener(new tomain());
@@ -610,6 +614,7 @@ public class live_assitance extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             super.onPostExecute(s);
+
             if (s.equals("11")) {
 //                Toast.makeText(live_assitance.this, "网络异常", Toast.LENGTH_SHORT).show();
             }
@@ -619,6 +624,7 @@ public class live_assitance extends AppCompatActivity {
                 JSONObject now = object1.getJSONObject("now");
                 JSONObject lifestyle = object1.getJSONArray("lifestyle").getJSONObject(1);
                 String tianqi = now.getString("cond_txt");
+                if (tianqi==null) tianqi =now.optString("cond_txt");
                 String advice = lifestyle.getString("txt");
 
                 System.out.println("天气："+tianqi);
@@ -633,8 +639,8 @@ public class live_assitance extends AppCompatActivity {
                 memo_dtime=memo_dtime + " 23:59:59";
                 DBManager mgr;
                 mgr=new DBManager(Appcontext.getContext());
-                Memo memo = new Memo(tianqi,memo_dtime, mgr.getWeather_priority(1),0,
-                        1, 1, 1, 1, 0, advice);
+                Memo memo = new Memo(tianqi,memo_dtime, mgr.getWeather_priority(user_id),0,
+                        1, 1, 1, user_id, 0, advice);
                 mgr.insert_Memo(memo);
             } catch (JSONException e) {
                 e.printStackTrace();

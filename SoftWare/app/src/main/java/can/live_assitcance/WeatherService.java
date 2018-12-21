@@ -29,6 +29,7 @@ public class WeatherService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
+                if (cityName==null) cityName = "福州市";
                 new can.live_assitcance.live_assitance.MyWeather().execute(API + cityName);
             }
         }).start();

@@ -23,6 +23,8 @@ import java.util.ArrayList;
 import can.aboutsqlite.DBManager;
 import can.aboutsqlite.Memo;
 import can.aboutsqlite.User;
+import can.live_assitcance.WeatherService;
+import can.live_assitcance.live_assitance;
 import can.memorycan.R;
 import can.memorycan.memo_add.memo_add;
 import io.reactivex.functions.Action;
@@ -69,6 +71,8 @@ public class MainActivity extends AppCompatActivity {
 
 
         mContext = MainActivity.this;
+       int weather= mgr.getWeather_on(user_id);
+
 
         igb_to_slider=findViewById(R.id.imageButton_slide);
         igb_to_slider.setOnClickListener(new tosliderbar());

@@ -266,14 +266,16 @@ public class DeliveryMatch {
     public String getTitle() {
         // TODO Auto-generated method stub
         setKeyContent();
-        title = companyName + "快递待取，取货需：" + deliveryNeed;
+        title = companyName + "：" + deliveryNeed;
         return title;
     }
 	
 	public String getEndTime() {
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
         String time = df.format(new Date());
+        System.out.println("++++++++++++++++++++++++++" + time);
         time = TimeHandle.handleTime(time);
+        System.out.println("--------------------------" + time);
 		return time;
 	}
 }

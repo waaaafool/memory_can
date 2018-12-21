@@ -69,7 +69,9 @@ public class SMSMatch {
 
     private void setArrayList() {
         setKeyContent();
-        setEndTime();
+        if (isTicketSMS == 1) {
+            setEndTime();
+        }
         setTitle();
         arrayList.add(title);
         arrayList.add(keyContent);
@@ -240,6 +242,7 @@ public class SMSMatch {
                 keyContent = deliveryMatch.getKeyContent();
                 title = deliveryMatch.getTitle();
                 endTime = deliveryMatch.getEndTime();
+                System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!" + endTime);
             } else if (type > 100) {
                 TicketMatch ticketMatch = new TicketMatch(SMSText, type);
                 keyContent = ticketMatch.getKeyContent();

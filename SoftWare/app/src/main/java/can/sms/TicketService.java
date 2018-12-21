@@ -24,7 +24,7 @@ public class TicketService extends Service {
         //因为，某些机型修改rom导致没有getContentResolver
         try {
 
-            System.out.println("启动监听");
+            System.out.println("启动出行监听");
             mSmsDatabaseChaneObserver = new TicketSmsDatabaseChaneObserver(contextWrapper.getContentResolver(), mHandler);
             contextWrapper.getContentResolver().registerContentObserver(SMS_MESSAGE_URI, true, mSmsDatabaseChaneObserver);
         } catch (Throwable b) {
@@ -34,7 +34,7 @@ public class TicketService extends Service {
     private void unregisterSmsDatabaseChangeObserver(ContextWrapper contextWrapper) {
         try {
 
-            System.out.println("停止监听");
+            System.out.println("停止出行监听");
             contextWrapper.getContentResolver().unregisterContentObserver(mSmsDatabaseChaneObserver);
         } catch (Exception e) {
             e.printStackTrace();

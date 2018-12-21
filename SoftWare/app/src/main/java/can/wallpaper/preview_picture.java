@@ -1,6 +1,7 @@
 package can.wallpaper;
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -68,7 +69,9 @@ public class preview_picture extends AppCompatActivity {
         textView9=findViewById(R.id.textView9);
         textView10=findViewById(R.id.textView10);
         mgr=new DBManager(this);
-        ArrayList<Memo> list=mgr.returnmemo2(1);
+        SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+        int user_id=sp.getInt("user_id",1);
+        ArrayList<Memo> list=mgr.returnmemo2(user_id);
         size=list.size();
         /*需要数据库返回带优先级的列表*/
         /*添加文字信息*/
