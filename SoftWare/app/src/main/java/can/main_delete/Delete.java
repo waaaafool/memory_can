@@ -77,9 +77,7 @@ public class Delete extends AppCompatActivity {
         gData.add(new Group_new("超时未完成",-1));
         gData.add(new Group_new("已完成任务",0));
 
-
         set_iData();
-
 
         myAdapter = new Delete_Adapter(gData,iData,mContext, mgr);
         list_memo.setAdapter(myAdapter);
@@ -123,8 +121,8 @@ public class Delete extends AppCompatActivity {
                         //myAdapter.notifyDataSetChanged();
 //                        myAdapter.notifyDataSetChanged();
                     }
-                    mgr.deletedone(1);
-                    iData.get(2).clear();
+                    mgr.deletedone(user_id);
+                    //iData.get(2).clear();
                 }
                 else
                 {

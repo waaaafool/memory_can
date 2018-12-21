@@ -126,7 +126,7 @@ public class Memo {
             return memo_dtime;
     }
     public String getmemo_dtimestring_memo_add(){
-        String temp1="";
+
         if( memo_dtime!=null){
             return memo_dtime;
         }

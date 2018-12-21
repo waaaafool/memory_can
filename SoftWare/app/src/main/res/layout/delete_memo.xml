@@ -48,7 +48,7 @@
             android:layout_width="80dp"
             android:layout_height="45dp"
             android:layout_marginLeft="150dp"
-            android:text="删除"
+            android:text=""
             android:textSize="16sp"
             android:background="@null"/>
     </LinearLayout>
