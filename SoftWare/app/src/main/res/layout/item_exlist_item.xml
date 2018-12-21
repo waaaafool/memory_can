@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:descendantFocusability="blocksDescendants"
+    android:background="#FFF">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/img_icon"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
+            android:src="@drawable/icon_stopwatch" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:focusable="false"
+            android:text="提莫"
+            android:textSize="14dp" />
+
+        <Spinner
+            android:id="@+id/spinner4"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:paddingLeft="30dp"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="12dp"
+            android:entries="@array/advanced_time"/>
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:background="#DDD"
+            android:layout_marginTop="40dp"
+            android:layout_marginLeft="30dp" />
+
+    </RelativeLayout>
+</LinearLayout>

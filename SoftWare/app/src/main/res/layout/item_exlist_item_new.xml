@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:padding="5dp"
+    android:background="#fff">
+    <CheckBox
+        android:id="@+id/ckb_name_new"
+        android:layout_width="220dp"
+        android:layout_height="30dp"
+        android:text="周六答辩"
+        android:textSize="16sp"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        android:focusable="false"/>
+    <TextView
+        android:id="@+id/tv_name_new"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="2dp"
+        android:focusable="false"
+        android:text="11月10号"
+        android:textSize="18sp" />
+</LinearLayout>

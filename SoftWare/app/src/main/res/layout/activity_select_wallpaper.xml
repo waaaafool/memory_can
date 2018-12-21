@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="can.wallpaper.select_wallpaper"
+    android:background="#fff">
+
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/radioButton2"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="17dp"
+                android:background="@drawable/ali_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="70dp"
+                android:layout_marginTop="20dp"
+                android:text="选择壁纸"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/imageView0"
+                android:layout_width="332dp"
+                android:layout_height="10dp"
+                android:layout_below="@+id/radioButton2"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/line1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="1511dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="40dp">
+
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="46dp"
+                    android:background="@drawable/wallpaper1" />
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="46dp"
+                    android:background="@drawable/wallpaper2" />
+
+                <ImageView
+                    android:id="@+id/imageView3"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="290dp"
+                    android:background="@drawable/wallpaper3" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="290dp"
+                    android:background="@drawable/wallpaper4" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="540dp"
+                    android:background="@drawable/wallpaper15" />
+
+                <ImageView
+                    android:id="@+id/imageView6"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="540dp"
+                    android:background="@drawable/wallpaper16" />
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="790dp"
+                    android:background="@drawable/wallpaper13" />
+
+                <ImageView
+                    android:id="@+id/imageView8"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="790dp"
+                    android:background="@drawable/wallpaper14" />
+
+                <ImageView
+                    android:id="@+id/imageView9"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="1040dp"
+                    android:background="@drawable/wallpaper9" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="1040dp"
+                    android:background="@drawable/wallpaper10" />
+
+                <ImageView
+                    android:id="@+id/imageView11"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="1290dp"
+                    android:background="@drawable/wallpaper11" />
+
+                <ImageView
+                    android:id="@+id/imageView12"
+                    android:layout_width="300px"
+                    android:layout_height="450px"
+                    android:layout_marginLeft="200dp"
+                    android:layout_marginTop="1290dp"
+                    android:background="@drawable/wallpaper12" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+
+</RelativeLayout>

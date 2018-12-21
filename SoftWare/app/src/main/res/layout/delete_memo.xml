@@ -1,0 +1,57 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:orientation="vertical"
+    android:background="#fff" >
+
+    <RelativeLayout
+        android:id="@+id/delete_r1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/delete_button_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/ali_back"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/delete_r3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/delete_r1"
+        android:layout_marginTop="5dp">
+        <ExpandableListView
+            android:id="@+id/delete_list_memo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:childDivider="#AAAAAA" />
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="#fff"
+        android:layout_alignParentBottom="true">
+        <CheckBox
+            android:id="@+id/delete_select_all"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:checked="false"
+            android:text="全选" />
+        <Button
+            android:id="@+id/delete_delete"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginLeft="150dp"
+            android:text="删除"
+            android:textSize="16sp"
+            android:background="@null"/>
+    </LinearLayout>
+</RelativeLayout>
+
+

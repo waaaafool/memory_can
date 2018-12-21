@@ -1,0 +1,274 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="5dp"
+    android:background="#fff"
+    android:orientation="vertical"
+    tools:context=".memo_add.memo_add">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/select_date"
+            android:textColor="@color/color3"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/selectDate"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color2"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/current_date"
+            android:textColor="@color/color4"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/currentDate"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@null"
+            android:gravity="center"
+            android:paddingEnd="15dp"
+            android:paddingStart="15dp"
+            android:textColor="@color/color5"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/color1"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="15dp"
+            android:background="@null"
+            android:gravity="center"
+            android:text="@string/select_time"
+            android:textColor="@color/color3"
+            android:textSize="15sp" />
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp">
+
+        <ImageButton
+            android:id="@+id/memo_add_back"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/ali_back"/>
+        <Button
+            android:id="@+id/memo_add_save"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="220dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#5677fc"
+            android:background="@null"
+            android:text="保存"
+            android:textSize="16dp"/>
+        <View
+            android:layout_width="300dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="39dp"
+            android:background="#AAAAAA"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/ali_title"/>
+        <EditText
+            android:id="@+id/memo_add_title"
+            android:layout_width="275dp"
+            android:layout_marginLeft="60dp"
+            android:layout_height="50dp"
+            android:textSize="16dp"
+            android:gravity="center_vertical"
+            android:hint="标题"/>
+
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ali_clock"/>
+        <TextView
+            android:layout_width="270dp"
+            android:height="0dp"
+            android:layout_marginLeft="60dp"
+            android:textColor="#000"
+            android:paddingLeft="2dp"
+            android:textSize="16dp"
+            android:layout_height="wrap_content"
+            android:text="没有到期时间"
+            android:gravity="center_vertical"/>
+        <RelativeLayout
+            android:id="@+id/selectTime"
+            android:layout_width="280dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="60dp"
+            android:background="@color/color2"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="3dp"
+                android:background="@null"
+                android:gravity="center"
+                android:text="到期时间"
+                android:textColor="@color/color4"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/currentTime"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:background="@null"
+                android:gravity="center"
+                android:paddingEnd="15dp"
+                android:paddingStart="15dp"
+                android:textColor="@color/color5"
+                android:textSize="15sp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="270dp"
+            android:layout_height="1dp"
+            android:background="#AAA"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="62dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ali_prio"/>
+        <TextView
+            android:layout_width="270dp"
+            android:height="40dp"
+            android:layout_marginLeft="60dp"
+            android:textColor="#000"
+            android:paddingLeft="2dp"
+            android:textSize="16dp"
+            android:layout_height="wrap_content"
+            android:text="优先级"
+            android:gravity="center_vertical"/>
+        <Spinner
+            android:id="@+id/memo_add_priority"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="255dp"
+            android:layout_marginTop="7dp"
+            android:entries="@array/priority"/>
+        <View
+            android:layout_width="270dp"
+            android:layout_height="2dp"
+            android:background="#AAA"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="62dp"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/ali_detail"/>
+        <TextView
+            android:id="@+id/memo_add_test"
+            android:layout_width="180dp"
+            android:layout_marginLeft="60dp"
+            android:layout_height="50dp"
+            android:textSize="16dp"
+            android:singleLine="true"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:paddingLeft="3dp"
+            android:text="详情"/>
+        <Button
+            android:id="@+id/memo_add_to_details"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginLeft="240dp"
+            android:layout_marginTop="5dp"
+            android:textColor="#5677fc"
+            android:background="@null"
+            android:text="添加"
+            android:textSize="16dp"/>
+        <View
+            android:layout_width="270dp"
+            android:layout_height="1dp"
+            android:background="#AAAAAA"
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="62dp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <ExpandableListView
+        android:id="@+id/exlist_lol"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="30dp"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:childDivider="#fff"/>
+    </RelativeLayout>
+
+</LinearLayout>

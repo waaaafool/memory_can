@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="can.memorycan">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SET_WALLPAPER" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+    <!-- 相机权限 -->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!-- 写入SD卡的权限：如果你希望保存相机拍照后的照片 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 读取SD卡的权限:打开相册选取图片所必须的权限 -->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission
+        android:name="android.permission.PACKAGE_USAGE_STATS"
+        tools:ignore="ProtectedPermissions" />
+
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <application
+        android:name="can.sms.Appcontext"
+        android:allowBackup="true"
+        android:icon="@mipmap/lunch"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".memo_add.memo_add" />
+        <activity
+            android:name="can.guide_pages.SplashActivity"
+            android:label="@string/app_name"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="can.guide_pages.WelcomeGuideActivity"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
+
+            />
+
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="fc406d65e7f72ee2d15a45fd30353492" />
+
+        <service android:name="com.amap.api.location.APSService" />
+
+        <activity android:name="can.weather.Weather" />
+
+        <activity android:name="can.main_delete.MainActivity"></activity>
+
+        <activity android:name="can.memo_add_details.memo_add_details" />
+        <activity android:name=".setting.setting" />
+
+        <receiver
+            android:name="can.appwidget.MulAppWidgetProvider"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="com.example.joy.action.CHANGE_IMAGE" />
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/mul_app_widget_provider_info" />
+        </receiver>
+
+        <service
+            android:name="can.appwidget.ListViewService"
+            android:enabled="true"
+            android:exported="false"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <activity android:name=".speech" />
+        <activity android:name="can.wallpaper.wallpaper_generate" />
+        <activity android:name="can.wallpaper.preview_picture" />
+        <activity android:name="can.wallpaper.select_wallpaper" />
+        <activity android:name="can.main_delete.Delete" />
+
+        <service android:name="can.sms.HelloService">
+            <intent-filter android:priority="1000">
+                <action android:name="can.sms.HelloService" />
+            </intent-filter>
+        </service>
+        <service android:name="can.sms.TicketService">
+            <intent-filter android:priority="1000">
+                <action android:name="can.sms.TicketService" />
+            </intent-filter>
+        </service>
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.example.memory"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name="can.live_assitcance.live_assitance" />
+        <activity android:name="can.sliderbar.sliderbar" />
+
+        <service
+            android:name="can.live_assitcance.WeatherService"
+            android:enabled="true"
+            android:exported="true" />
+
+        <receiver android:name="can.live_assitcance.AutoUpdateReceiver" />
+
+
+        <service
+            android:name="can.live_assitcance.AppUsedService"
+            android:enabled="true"
+            android:exported="true"></service>
+        <receiver android:name="can.live_assitcance.AutoUpdateReceiver0" />
+
+
+        <activity
+            android:name="can.login.LoginActivity"
+            android:label="@string/title_activity_login">
+
+        </activity>
+        <activity
+            android:name="can.login.SignupActivity"
+            android:label="@string/title_activity_signup" />
+    </application>
+
+</manifest>
