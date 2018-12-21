@@ -1,11 +1,16 @@
 package can.main_delete;
 
 import android.Manifest;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -22,7 +27,9 @@ import java.util.ArrayList;
 
 import can.aboutsqlite.DBManager;
 import can.aboutsqlite.Memo;
+import can.aboutsqlite.Memocloud;
 import can.aboutsqlite.User;
+import can.live_assitcance.AppUsedService;
 import can.live_assitcance.WeatherService;
 import can.live_assitcance.live_assitance;
 import can.memorycan.R;
@@ -53,10 +60,12 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             this.update();
-            handle.postDelayed(this,1000*2);
+            handle.postDelayed(this,1000*1);
         }
         void update()
         {
+            Notice_clock();
+            set_iData();
             myAdapter.notifyDataSetChanged();
         }
     };
@@ -68,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         final DBManager mgr = new DBManager(this);
         SharedPreferences sp = getSharedPreferences("sp_demo", Context.MODE_PRIVATE);
         user_id=sp.getInt("user_id",1);
-
 
         mContext = MainActivity.this;
        int weather= mgr.getWeather_on(user_id);
@@ -90,17 +98,8 @@ public class MainActivity extends AppCompatActivity {
         gData.add(new Group_new("超时未完成",-1));
         gData.add(new Group_new("已完成任务",0));
 
-        lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo2(user_id);
-        iData.add(lData);
-
-        lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo3(user_id);
-        iData.add(lData);
-
-        lData = new ArrayList<Memo>();
-        lData = mgr.returnmemo1(user_id);
-        iData.add(lData);
+        Notice_clock();
+        set_iData();
 
         myAdapter = new MyBaseExpandableListAdapter_new(gData,iData,mContext, mgr);
         list_memo.setAdapter(myAdapter);
@@ -115,6 +114,7 @@ public class MainActivity extends AppCompatActivity {
         list_memo.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
+                System.out.print("------");
                 detail.putExtra("memo_id",iData.get(groupPosition).get(childPosition).getMemo_id());
                 Bundle bundle = new Bundle();
                 bundle.putString("test","false");
@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
         imagebotton_delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view)
             {
+                detail.putExtra("user_id",user_id);
+                Bundle bundle = new Bundle();
+                bundle.putString("test","false");
+                detail.putExtras(bundle);
                 startActivity(delete);
             }
         });
@@ -148,8 +152,8 @@ public class MainActivity extends AppCompatActivity {
                                 0, 1,user_id,0,"：）");
                         Log.e("insert","insert");
                         mgr.insert_Memo(memo);
-                        iData.get(0).add(memo);
-                        myAdapter.notifyDataSetChanged();
+                        //iData.get(0).add(memo);
+                        //myAdapter.notifyDataSetChanged();
 //                        Intent self = new Intent(MainActivity.this,MainActivity.class);
 //                        startActivity(self);
                     }
@@ -157,8 +161,52 @@ public class MainActivity extends AppCompatActivity {
                 speechBottomSheetDialog.show(getSupportFragmentManager(), TAG);
             }
         });
-        handle.postDelayed(runnable,1000*2);
+        handle.postDelayed(runnable,1000*1);
     }
+
+    public void set_iData()
+    {
+        iData.clear();
+        final DBManager mgr = new DBManager(this);
+        lData = new ArrayList<Memo>();
+        lData = mgr.returnmemo2(user_id);
+        iData.add(lData);
+
+        lData = new ArrayList<Memo>();
+        lData = mgr.returnmemo3(user_id);
+        iData.add(lData);
+
+        lData = new ArrayList<Memo>();
+        lData = mgr.returnmemo1(user_id);
+        iData.add(lData);
+    }
+
+
+    public void Notice_clock()
+    {
+        final DBManager mgr = new DBManager(this);
+        ArrayList<Memocloud> Notice = new ArrayList();
+        String all_to_notice = "";
+        Notice = mgr.returnmemocloud(user_id);
+        for(int i=0;i<Notice.size();i++)
+        {
+            if(System.currentTimeMillis() >= Notice.get(i).getMemo_dtime() - 720000 && System.currentTimeMillis() < Notice.get(i).getMemo_dtime())
+            {
+                if(all_to_notice=="") {
+                    all_to_notice += Notice.get(i).getMemo_title();
+                }
+                else
+                {
+                    all_to_notice += "、 ";
+                    all_to_notice += Notice.get(i).getMemo_title();
+                }
+            }
+        }
+        if(all_to_notice==""){}
+        else
+            sendNotify(all_to_notice);
+    }
+
     protected void onDestroy(){
         handle.removeCallbacks(runnable);
         super.onDestroy();
@@ -239,4 +287,46 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    //消息发送到通知栏
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    void sendNotify(String contentText){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            //创建通知渠道
+            CharSequence name = "MenoAlarm";
+            String description = "MenoAlarm";
+            String channelId="channelId2";//渠道id
+            int importance = NotificationManager.IMPORTANCE_DEFAULT;//重要性级别
+            NotificationChannel mChannel = new NotificationChannel(channelId, name, importance);
+            mChannel.setDescription(description);//渠道描述
+            mChannel.enableLights(true);//是否显示通知指示灯
+            mChannel.enableVibration(true);//是否振动
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            notificationManager.createNotificationChannel(mChannel);//创建通知渠道
+            //第二个参数与channelId对应
+            Notification.Builder builder = new Notification.Builder(MainActivity.this,channelId);
+            //icon title text必须包含，不然影响桌面图标小红点的展示
+            builder.setSmallIcon(android.R.drawable.stat_notify_chat)
+                    .setContentTitle("即将过期的备忘录")
+                    .setContentText(contentText)
+                    .setNumber(3); //久按桌面图标时允许的此条通知的数量
+
+            //            Intent intent= new Intent(this,NotificationActivity.class);
+            //            PendingIntent ClickPending = PendingIntent.getActivity(this, 0, intent, 0);
+            //            builder.setContentIntent(ClickPending);
+            notificationManager.notify(1,builder.build());
+            //            Notification notify = builder.build();
+        }else{
+            NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+            Notification.Builder builder = new Notification.Builder(MainActivity.this);
+            //icon title text必须包含，不然影响桌面图标小红点的展示
+            builder.setSmallIcon(android.R.drawable.stat_notify_chat)
+                    .setContentTitle("即将过期的备忘录")
+                    .setContentText(contentText)
+                    .setNumber(3); //久按桌面图标时允许的此条通知的数量
+            notificationManager.notify(2,builder.build());
+        }
+    }
+
+
 }

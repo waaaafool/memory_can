@@ -11,6 +11,8 @@
         android:layout_height="30dp"
         android:text="周六答辩"
         android:textSize="16sp"
+        android:singleLine="true"
+        android:ellipsize="end"
         android:layout_marginTop="0dp"
         android:layout_marginLeft="10dp"
         android:focusable="false"/>

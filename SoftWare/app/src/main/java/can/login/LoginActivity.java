@@ -112,16 +112,18 @@ public class LoginActivity extends AppCompatActivity {
         int is_close=sp.getInt("is_close",0);
         String mobile_1=sp.getString("mobile",null);
         String password_1=sp.getString("password",null);
+        int key=0;
         if(is_close!=0){
             if(mgr.is_exis(mobile,password)==-1){
                 code=1;
+                key=1;
             }
             else{
                 user_id=mgr.is_exis(mobile,password);
                 code=2;
             }
         }
-        if(is_close==0){
+        if(is_close==0||key==1){
             try{
                 URL url=new URL("http://139.224.232.186:8080/web/user/login");
 
