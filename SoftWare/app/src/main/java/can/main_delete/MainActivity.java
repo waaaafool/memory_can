@@ -127,6 +127,10 @@ public class MainActivity extends AppCompatActivity {
         imagebotton_delete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view)
             {
+                detail.putExtra("user_id",user_id);
+                Bundle bundle = new Bundle();
+                bundle.putString("test","false");
+                detail.putExtras(bundle);
                 startActivity(delete);
             }
         });
@@ -198,8 +202,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        System.out.println("-----------------");
-        System.out.println("这是判断一下通知什么妖怪东西" + all_to_notice);
         if(all_to_notice==""){}
         else
             sendNotify(all_to_notice);
