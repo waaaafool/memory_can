@@ -134,7 +134,7 @@ public class sliderbar extends AppCompatActivity {
 
                 System.out.print(json);
                 String param="type=云备份&user=" +users+ "&memo="+json;
-                Toast.makeText(getBaseContext(),param, Toast.LENGTH_LONG).show();
+
                 httpURLConnection.connect();
                 PrintWriter writer=new PrintWriter(httpURLConnection.getOutputStream());
                 writer.print(param);
@@ -159,7 +159,7 @@ public class sliderbar extends AppCompatActivity {
                 if(code==1)
                 {
                     line=reader.readLine();
-                    Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
+
                     mgr.Deletememo_by_uid(user_id);
                     ArrayList<Memocloud> PostList = gson.fromJson(line, (new TypeToken<ArrayList<Memocloud>>() {}).getType());
                     for (int i = 0; i < PostList.size(); i++) {
@@ -199,7 +199,7 @@ public class sliderbar extends AppCompatActivity {
                 BufferedReader reader=new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()));
                 String line=null;
                 line=reader.readLine();
-                Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
+
 
                 line=line.substring(0,(line.length()-1));
                 int flag=0;//标示是否开始识别
@@ -245,7 +245,7 @@ public class sliderbar extends AppCompatActivity {
                     mgr.Deletememo_by_uid(user1.getUser_id());
                     line=null;
                     line=reader.readLine();
-                    Toast.makeText(getBaseContext(),line , Toast.LENGTH_LONG).show();
+
                     mgr.Deletememo_by_uid(user1.getUser_id());
                     Gson gson=new Gson();
                     List<Memocloud> PostList = gson.fromJson(line, (new TypeToken<List<Memocloud>>() {}).getType());
