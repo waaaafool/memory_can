@@ -171,8 +171,12 @@ public class memo_add extends AppCompatActivity{
 
         if(n!=-1){
             String sdy=temp_memo.getmemo_dtimestring_memo_add();
+            System.out.println(sdy);
             if(sdy!=null&&sdy.length()>3)
             sdy=sdy.substring(0,sdy.length()-3);
+            else if(sdy.equals("")){
+                sdy="9999-12-01 12:12";
+            }
             currentTime.setText(sdy);
         }
         else {
