@@ -85,6 +85,7 @@ public class live_assitance extends AppCompatActivity {
     private Switch  sw1,sw2,sw3,sw4,sw5,sw6,sw7;//天气预报按钮sw5，智能分析按钮sw7
     private Switch sw8;//悬浮窗
     private static int user_id=1;
+    private static int appUsedFlag=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -511,10 +512,11 @@ public class live_assitance extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
                     runAppUsed();
-                    runSendNotify(contentText);
+                    runSendNotify();
                 }
             }
         });
+
     }
 
     private class tomain implements View.OnClickListener{
@@ -656,9 +658,8 @@ public class live_assitance extends AppCompatActivity {
         if (isNoOption()){//判断是否有"有权查看使用情况的应用程序"这个选项
             while(true){
                 if (isNoSwitch()){//判断"有权查看使用情况的应用程序"选项的打开状态
-                    contentText = "运行时间最长的3个app为：";
+//                    contentText = "运行时间最长的3个app为：";
                     appUsed(K);//小米和魅族手机没有Settings.ACTION_USAGE_ACCESS_SETTINGS
-//                    tv1.setText(contentText);
                     break;
                 }else{
                     try {
@@ -764,7 +765,7 @@ public class live_assitance extends AppCompatActivity {
 //            System.out.println(" ");
 //        }
         for( int i = myList.size()-1; i>=myList.size()-k; i--) {
-            if (TextUtils.isEmpty(contentText)){
+            if (contentText==null){
                 contentText = myList.get(i).getMyAppName();
             }else {
                 contentText = contentText + myList.get(i).getMyAppName();
@@ -772,6 +773,7 @@ public class live_assitance extends AppCompatActivity {
             if (i!=myList.size()-k){
                 contentText = contentText + "、";
             }
+            appUsedFlag++;
         }
     }
 
@@ -849,15 +851,14 @@ public class live_assitance extends AppCompatActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
-    void runSendNotify(String contentText){
+    void runSendNotify(){
         if (isNotificationEnabled(this)){
-//            sendNotify(contentText);
             Intent intent = new Intent(live_assitance.this, AppUsedService.class);
             startService(intent);
         }else{
             Toast.makeText(live_assitance.this,"请打开通知栏的权限，否则无法实现通知功能",Toast.LENGTH_LONG).show();
             goToSet();
-            runSendNotify(contentText);
+            runSendNotify();
         }
     }
 
@@ -867,6 +868,8 @@ public class live_assitance extends AppCompatActivity {
     public static String getCityName(){
         return  cityName;
     }
-    public static String getContentText(){return contentText;}
-    public static int getK(){return K;}
+    public static String getContentText(){
+        if (appUsedFlag==3) return contentText;
+        else return null;
+    }
 }

@@ -11,11 +11,16 @@ import android.os.Build;
 import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
+import can.main_delete.MainActivity;
+import can.sms.Appcontext;
 
 public class AppUsedService extends Service {
     //    private int anHour =8*60*60*1000;// 这是8小时的毫秒数 为了少消耗流量和电量，8小时自动更新一次
-    private int anHour = 14*24*60*60*1000;// 这是2周的毫秒数,2周自动更新一次
-    private String contentText = live_assitance.getContentText();
+    private int anHour = 14 * 24 * 60 * 60 * 1000;// 这是2周的毫秒数,2周自动更新一次
+    private String contentText;
+    private int id = MainActivity.getNotifyId();
+    private int i = 0;
+
     @Override
     public IBinder onBind(Intent intent) {
         // TODO: Return the communication channel to the service.
@@ -30,10 +35,11 @@ public class AppUsedService extends Service {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sendNotify(contentText);
-                System.out.println("-------------");
-                System.out.println(contentText);
-                System.out.println("-------------");
+                while (contentText == null) contentText = live_assitance.getContentText();
+                i++;
+                if (i != 1) {
+                    sendNotify(contentText);
+                }
             }
         }).start();
         AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
@@ -51,12 +57,12 @@ public class AppUsedService extends Service {
 
     //消息发送到通知栏
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    void sendNotify(String contentText){
+    void sendNotify(String contentText) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             //创建通知渠道
             CharSequence name = "MenoCan";
             String description = "AppUsed";
-            String channelId="channelId1";//渠道id
+            String channelId = "channelId1";//渠道id
             int importance = NotificationManager.IMPORTANCE_DEFAULT;//重要性级别
             NotificationChannel mChannel = new NotificationChannel(channelId, name, importance);
             mChannel.setDescription(description);//渠道描述
@@ -65,29 +71,31 @@ public class AppUsedService extends Service {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             notificationManager.createNotificationChannel(mChannel);//创建通知渠道
             //第二个参数与channelId对应
-            Notification.Builder builder = new Notification.Builder(AppUsedService.this,channelId);
+            Notification.Builder builder = new Notification.Builder(AppUsedService.this, channelId);
             //icon title text必须包含，不然影响桌面图标小红点的展示
             builder.setSmallIcon(android.R.drawable.stat_notify_chat)
-                    .setContentTitle("用户最近两周使用app情况")
+                    .setContentTitle("最近使用时间最长的3个app")
                     .setContentText(contentText)
                     .setNumber(3); //久按桌面图标时允许的此条通知的数量
 
             //            Intent intent= new Intent(this,NotificationActivity.class);
             //            PendingIntent ClickPending = PendingIntent.getActivity(this, 0, intent, 0);
             //            builder.setContentIntent(ClickPending);
-            notificationManager.notify(1,builder.build());
+            notificationManager.notify(id++, builder.build());
             //            Notification notify = builder.build();
-        }else{
+        } else {
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
             Notification.Builder builder = new Notification.Builder(AppUsedService.this);
             //icon title text必须包含，不然影响桌面图标小红点的展示
             builder.setSmallIcon(android.R.drawable.stat_notify_chat)
-                    .setContentTitle("用户最近两周使用app情况")
+                    .setContentTitle("最近使用时间最长的3个app")
                     .setContentText(contentText)
                     .setNumber(3); //久按桌面图标时允许的此条通知的数量
-            notificationManager.notify(2,builder.build());
+            notificationManager.notify(id++, builder.build());
         }
     }
+
+
 }
 
 

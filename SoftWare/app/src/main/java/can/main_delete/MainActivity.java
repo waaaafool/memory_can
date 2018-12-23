@@ -34,6 +34,9 @@ import can.live_assitcance.WeatherService;
 import can.live_assitcance.live_assitance;
 import can.memorycan.R;
 import can.memorycan.memo_add.memo_add;
+import can.sms.Appcontext;
+import can.sms.HelloService;
+import can.sms.TicketService;
 import io.reactivex.functions.Action;
 import can.memorycan.speech;
 import io.reactivex.functions.Consumer;
@@ -56,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private MyBaseExpandableListAdapter_new myAdapter = null;
     private Handler handle = new Handler();
     int user_id;
+    public static int Notifyid =0;
+//    private String last_to_notice = "-------";
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -161,6 +166,17 @@ public class MainActivity extends AppCompatActivity {
                 speechBottomSheetDialog.show(getSupportFragmentManager(), TAG);
             }
         });
+
+        User user=mgr.returnauser(1);
+        if (user.getTrip_on() == 1) {
+            Intent mIntent = new Intent(MainActivity.this, HelloService.class);
+            startService(mIntent);
+        }
+        if (user.getParcel_on() == 1) {
+            Intent mIntent = new Intent(MainActivity.this, TicketService.class);
+            startService(mIntent);
+        }
+
         handle.postDelayed(runnable,1000*1);
     }
 
@@ -187,6 +203,7 @@ public class MainActivity extends AppCompatActivity {
         final DBManager mgr = new DBManager(this);
         ArrayList<Memocloud> Notice = new ArrayList();
         String all_to_notice = "";
+        int flag=0;
         Notice = mgr.returnmemocloud(user_id);
         for(int i=0;i<Notice.size();i++)
         {
@@ -202,9 +219,17 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }
-        if(all_to_notice==""){}
-        else
+
+        if (all_to_notice.equals(Appcontext.last_to_notice)){//现在这条已经发过，flag=1，即不再发
+            flag = 1;
+        }else{//现在这条没有发过，flag=0，即发送
+            flag=0;
+        }
+
+        if (all_to_notice!="" && flag==0){
+            Appcontext.last_to_notice = all_to_notice;
             sendNotify(all_to_notice);
+        }
     }
 
     protected void onDestroy(){
@@ -317,7 +342,7 @@ public class MainActivity extends AppCompatActivity {
             //            Intent intent= new Intent(this,NotificationActivity.class);
             //            PendingIntent ClickPending = PendingIntent.getActivity(this, 0, intent, 0);
             //            builder.setContentIntent(ClickPending);
-            notificationManager.notify(1,builder.build());
+            notificationManager.notify(Notifyid++,builder.build());
             //            Notification notify = builder.build();
         }else{
             NotificationManager notificationManager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
@@ -327,9 +352,10 @@ public class MainActivity extends AppCompatActivity {
                     .setContentTitle("即将过期的备忘录")
                     .setContentText(contentText)
                     .setNumber(3); //久按桌面图标时允许的此条通知的数量
-            notificationManager.notify(2,builder.build());
+            notificationManager.notify(Notifyid++,builder.build());
         }
     }
 
+    public static int getNotifyId(){return Notifyid;}
 
 }

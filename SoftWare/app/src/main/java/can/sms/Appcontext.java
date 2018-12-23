@@ -6,6 +6,7 @@ import android.content.Context;
 public class Appcontext extends Application {
 
     private static Context context;
+    public static String last_to_notice = "-------";
 
     @Override
     public void onCreate() {

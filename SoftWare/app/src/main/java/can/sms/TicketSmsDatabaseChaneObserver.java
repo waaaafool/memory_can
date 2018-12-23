@@ -117,11 +117,11 @@ public class TicketSmsDatabaseChaneObserver extends ContentObserver {
         if (needTicketSMS != 0) {
             if (needTicketSMS != 0 && isTicketSMS != 0) {
                 arrayList = mSMSMatch.getArrayList();
-//                System.out.println("按要求输出车票短信关键字：");
-//                System.out.println("标题：" + arrayList.get(0));
-//                System.out.println("截止时间：" + arrayList.get(1));
-//                System.out.println("----------------------");
-//                System.out.println(arrayList.get(2));
+                System.out.println("按要求输出车票短信关键字：");
+                System.out.println("标题：" + arrayList.get(0));
+                System.out.println("截止时间：" + arrayList.get(1));
+                System.out.println("----------------------");
+                System.out.println(arrayList.get(2));
                 if (arrayList.get(0) != null)
                     update = 1;
             }
