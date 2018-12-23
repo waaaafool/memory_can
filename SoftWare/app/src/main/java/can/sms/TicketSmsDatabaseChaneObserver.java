@@ -122,7 +122,8 @@ public class TicketSmsDatabaseChaneObserver extends ContentObserver {
 //                System.out.println("截止时间：" + arrayList.get(1));
 //                System.out.println("----------------------");
 //                System.out.println(arrayList.get(2));
-                update = 1;
+                if (arrayList.get(0) != null)
+                    update = 1;
             }
 //            test.getTitle();
 //            test.getTicketEndTime();

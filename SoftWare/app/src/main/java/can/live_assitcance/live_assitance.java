@@ -312,7 +312,7 @@ public class live_assitance extends AppCompatActivity {
                     @Override
                     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                         Intent mIntent = new Intent(live_assitance.this, TicketService.class);
-                        if (sw1.isChecked() == true) {
+                        if (sw3.isChecked() == true) {
                             getPermission(Manifest.permission.READ_SMS);
                             if (ActivityCompat.checkSelfPermission(live_assitance.this, Manifest.permission.READ_SMS) == PackageManager.PERMISSION_GRANTED) {
                                 System.out.println("----------------------------------------------------------");
@@ -321,7 +321,7 @@ public class live_assitance extends AppCompatActivity {
                                 user.setParcel_on(percel[0]);
                             } else {
                                 System.out.println("***********************************************************");
-                                sw1.setChecked(false);
+                                sw3.setChecked(false);
                                 stopService(mIntent);
                             }
                         } else {
@@ -528,6 +528,8 @@ public class live_assitance extends AppCompatActivity {
 
     private void getPermission(String permissios) {
         if (ActivityCompat.checkSelfPermission(this,permissios) != PackageManager.PERMISSION_GRANTED) {
+
+            System.out.println("正在申请++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
             ActivityCompat.requestPermissions(this, new String[] {permissios}, 123);
         }
     }
@@ -635,7 +637,7 @@ public class live_assitance extends AppCompatActivity {
                 Date date = new Date(System.currentTimeMillis());
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 String memo_dtime=format.format(date);
-                memo_dtime.substring(10);
+                memo_dtime = memo_dtime.substring(0, 10);
                 memo_dtime=memo_dtime + " 23:59:59";
                 DBManager mgr;
                 mgr=new DBManager(Appcontext.getContext());

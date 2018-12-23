@@ -241,15 +241,18 @@ public class MainActivity extends AppCompatActivity {
 
     /**只有一个运行时权限申请的情况*/
     private void onePermission(){
+        System.out.println("申请1++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
         RxPermissions rxPermissions = new RxPermissions(MainActivity.this); // where this is an Activity instance
-        rxPermissions.request(Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.READ_PHONE_STATE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE) //权限名称，多个权限之间逗号分隔开
+        rxPermissions.request(Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.READ_SMS,
+                Manifest.permission.ACCESS_FINE_LOCATION) //权限名称，多个权限之间逗号分隔开
                 .subscribe(new Consumer<Boolean>() {
                     @Override
                     public void accept(Boolean granted) throws Exception {
                         Log.e(TAG, "{accept}granted=" + granted);//执行顺序——1【多个权限的情况，只有所有的权限均允许的情况下granted==true】
                         if (granted) { // 在android 6.0之前会默认返回true
+                            System.out.println("申请2++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
                             // 已经获取权限
                         } else {
                             // 未获取权限

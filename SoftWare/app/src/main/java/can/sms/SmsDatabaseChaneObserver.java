@@ -123,7 +123,8 @@ public class SmsDatabaseChaneObserver extends ContentObserver {
 //                System.out.println("标题：" + arrayList.get(0));
 //                System.out.println("----------------------");
 //                System.out.println(arrayList.get(1));
-                update = 1;
+                if (arrayList.get(0) != null)
+                    update = 1;
             }
         } else {
             System.out.println("未开启短信分析功能");

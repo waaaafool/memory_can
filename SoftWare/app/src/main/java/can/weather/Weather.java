@@ -1,5 +1,6 @@
 package can.weather;
 
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -282,8 +283,11 @@ public class Weather extends AppCompatActivity {
                 memo_dtime=memo_dtime + " 23:59:59";
                 DBManager mgr;
                 mgr=new DBManager(Appcontext.getContext());
-                Memo memo = new Memo(tianqi,memo_dtime, mgr.getWeather_priority(1),0,
-                        1, 1, 1, 1, 0, advice);
+                SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+                int user_id=sp.getInt("user_id",1);
+                System.out.println("user_id : " + user_id);
+                Memo memo = new Memo(tianqi,memo_dtime, mgr.getWeather_priority(user_id),0,
+                        1, 1, 1, user_id, 0, advice);
                 mgr.insert_Memo(memo);
 
 

@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.ContextWrapper;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.IBinder;
 import android.os.Handler;
@@ -101,8 +102,11 @@ public class HelloService extends Service {
         if (info.get(2) == null) {
             deadTime = endTime;
         }
-        Memo memo = new Memo(info.get(0),deadTime, mgr.getParcel_priority(1), 1,
-                1, 1, 1, 1, 0, info.get(1));
+        SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+        int user_id=sp.getInt("user_id",1);
+        System.out.println("user_id : " + user_id);
+        Memo memo = new Memo(info.get(0),deadTime, mgr.getParcel_priority(user_id), 1,
+                1, 1, 1, user_id, 0, info.get(1));
         mgr.insert_Memo(memo);
     }
 }
