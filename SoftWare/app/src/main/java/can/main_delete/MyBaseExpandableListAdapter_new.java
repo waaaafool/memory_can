@@ -133,10 +133,6 @@ public class MyBaseExpandableListAdapter_new extends BaseExpandableListAdapter {
                 {
                     if(groupPosition!=2) {
                         iData.get(2).add(iData.get(groupPosition).get(childPosition));
-//                    System.out.println("组的位置："+groupPosition+" 子项中的位置："+childPosition);
-//                    Log.e("这是组的位置",String.valueOf(groupPosition));
-//                    Log.e("这是子项的位置",String.valueOf(childPosition));
-//                    Log.e("这是当前组的大小",String.valueOf(iData.get(groupPosition).size()));
                         Memo memo = iData.get(groupPosition).get(childPosition);
                         System.out.println("现在正在试图将被勾选的备忘录从数据库中改变状态" + iData.get(groupPosition).get(childPosition).getMemo_id());
                         mgr.changestate(iData.get(groupPosition).get(childPosition).getMemo_id());
@@ -155,7 +151,14 @@ public class MyBaseExpandableListAdapter_new extends BaseExpandableListAdapter {
         });
 
         itemHolder.ckb_name.setText(iData.get(index1).get(index2).getMemo_title());
-        itemHolder.tv_name.setText(String.valueOf(iData.get(index1).get(index2).getmemo_dtimestring()));
+        String tmp_str = iData.get(index1).get(index2).getmemo_dtimestring().substring(0,1);
+        System.out.println("@@@@@@@@@@@@@@@@@X" +  tmp_str);
+        int i = Integer.parseInt(tmp_str);
+        if(i>=5)
+        {
+            tmp_str="";
+        }
+        itemHolder.tv_name.setText(String.valueOf(tmp_str));
         return convertView;
     }
 
