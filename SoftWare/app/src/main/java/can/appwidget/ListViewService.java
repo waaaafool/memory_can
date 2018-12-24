@@ -2,7 +2,9 @@ package can.appwidget;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -23,38 +25,74 @@ public class ListViewService extends RemoteViewsService {
     }
 
     private class ListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-
         private Context mContext;
-
         private List<String> mList = new ArrayList<>();
-
         public ListRemoteViewsFactory(Context context, Intent intent) {
             mContext = context;
         }
 
+//        private class MyThread implements Runnable {
+//
+//            private ArrayList<Memo> list;
+//            public MyThread(ArrayList<Memo> list) {
+//                this.list = list;
+//            }
+//
+//            @Override
+//            public void run() {
+////                mgr=new DBManager(ListViewService.this);
+////                SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+////                int user_id=sp.getInt("user_id",1);
+////                ArrayList<Memo> list=mgr.returnmemo2(user_id);
+//                /*需要数据库返回带优先级的列表*/
+//                /*添加文字信息*/
+//                if (mList.size()==0){
+//                    int size = list.size();
+//                    for (int i=0; i<size; i++) {
+//                        String use_i = list.get(i).getMemo_title();
+//                        mList.add(use_i);
+//                        if (i==4) break;
+//                    }
+//                    System.out.println("----------------11");
+//                }else {
+//                    mList.clear();
+//                    int size = list.size();
+//                    for (int i=0; i<size; i++) {
+//                        String use_i = list.get(i).getMemo_title();
+//                        mList.add(use_i);
+//                        if (i==4) break;
+//                    }
+//                    System.out.println("----------------22");
+//                }
+//                try {
+//                    Thread.sleep(500);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
+//            }
+//        }
+
         @Override
         public void onCreate() {//插入备忘录的内容
-            mgr= new DBManager(ListViewService.this);
-            ArrayList<Memo> list=mgr.returnmemo2(1);
+            mgr=new DBManager(ListViewService.this);
+            SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+            int user_id=sp.getInt("user_id",1);
+            ArrayList<Memo> list=mgr.returnmemo2(user_id);
             /*需要数据库返回带优先级的列表*/
             /*添加文字信息*/
-//            String temp_s="   ";
-//            String use_0=list.get(0).getMemo_title()+temp_s+list.get(0).getmemo_dtimestring();
-//            String use_1=list.get(1).getMemo_title()+temp_s+list.get(1).getmemo_dtimestring();
-//            String use_2=list.get(2).getMemo_title()+temp_s+list.get(2).getmemo_dtimestring();
-//            String use_3=list.get(3).getMemo_title()+temp_s+list.get(3).getmemo_dtimestring();
-//            String use_4=list.get(4).getMemo_title()+temp_s+list.get(4).getmemo_dtimestring();
+            int size = list.size();
+            for (int i=0; i<size; i++) {
+                String use_i = list.get(i).getMemo_title();
+                mList.add(use_i);
+                if (i==4) break;
+            }
 
-            String use_0=list.get(0).getMemo_title();
-            String use_1=list.get(1).getMemo_title();
-            String use_2=list.get(2).getMemo_title();
-            String use_3=list.get(3).getMemo_title();
-            String use_4=list.get(4).getMemo_title();
-            mList.add(use_0);
-            mList.add(use_1);
-            mList.add(use_2);
-            mList.add(use_3);
-            mList.add(use_4);
+//            mgr=new DBManager(ListViewService.this);
+//            SharedPreferences sp=getSharedPreferences("sp_demo",MODE_PRIVATE);
+//            int user_id=sp.getInt("user_id",1);
+//            ArrayList<Memo> list=mgr.returnmemo2(user_id);
+//            new Thread(new MyThread(list)).start();
+
         }
 
         @Override

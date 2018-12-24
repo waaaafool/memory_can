@@ -151,14 +151,19 @@ public class MyBaseExpandableListAdapter_new extends BaseExpandableListAdapter {
         });
 
         itemHolder.ckb_name.setText(iData.get(index1).get(index2).getMemo_title());
-        String tmp_str = iData.get(index1).get(index2).getmemo_dtimestring().substring(0,1);
-        System.out.println("@@@@@@@@@@@@@@@@@X" +  tmp_str);
-        int i = Integer.parseInt(tmp_str);
-        if(i>=5)
-        {
-            tmp_str="";
+        if (iData.get(index1).get(index2).getmemo_dtimestring() != "") {
+            String tmp_str = iData.get(index1).get(index2).getmemo_dtimestring().substring(0, 1);
+            System.out.println("@@@@@@@@@@@@@@@@@X" + tmp_str);
+            int i = Integer.parseInt(tmp_str);
+            if (i >= 5) {
+                tmp_str = "";
+                itemHolder.tv_name.setText(String.valueOf(tmp_str));
+            } else {
+                itemHolder.tv_name.setText(String.valueOf(iData.get(index1).get(index2).getmemo_dtimestring()));
+            }
+        } else {
+            itemHolder.tv_name.setText(String.valueOf(iData.get(index1).get(index2).getmemo_dtimestring()));
         }
-        itemHolder.tv_name.setText(String.valueOf(tmp_str));
         return convertView;
     }
 
